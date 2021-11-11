@@ -32,7 +32,6 @@ ISR(TIMER2_COMPA_vect){
 	//dutyMDxA = CalculatePID(MDxA);
 	//dutyMSxD = CalculatePID(MSxD);
 	//dutyMDxD = CalculatePID(MDxD);
-
 }
 
 ISR(TIMER0_COMPA_vect){
@@ -65,35 +64,12 @@ ISR(INT0_vect){
 	vTopRaggiunti1 = topRaggiuntiProv1;
 }
 
-//ISR(INT3_vect){
-	//tImp2 = TCNT4;
-	//topRaggiuntiProv2=topRaggiunti;
-	//if(topRaggiuntiProv2==vTopRaggiunti2){
-		//difftImp2 = tImp2 - vtImp2;
-	//}
-	//else{
-		//difftImp2 = (OCR4A - vtImp2) + (tImp2) + ((topRaggiuntiProv2-vTopRaggiunti2)*OCR4A);
-		//
-	//}
-	//vtImp2 = tImp2;
-	//vTopRaggiunti2 = topRaggiuntiProv2;
-	//speed[2] = 62500 / (difftImp2 * 622);
-//}
-//
-//ISR(INT5_vect){
-	//tImp3 = TCNT4;
-	//topRaggiuntiProv3=topRaggiunti;
-	//if(topRaggiuntiProv3==vTopRaggiunti3){
-		//difftImp3 = tImp3 - vtImp3;
-	//}
-	//else{
-		//difftImp3 = (OCR4A - vtImp3) + (tImp3) + ((topRaggiuntiProv3-vTopRaggiunti3)*OCR4A);
-		//
-	//}
-	//vtImp3 = tImp3;
-	//vTopRaggiunti3 = topRaggiuntiProv3;
-	//speed[3] = 62500 / (difftImp3 * 622);
-//}
+ISR(INT1_vect){
+	Serial_Send(Kp);
+	Serial_Send("\t");
+	Serial_Send(OCR1A);
+	SerialN();
+}
 //
 //ISR(INT4_vect){
 	//tImp4 = TCNT4;

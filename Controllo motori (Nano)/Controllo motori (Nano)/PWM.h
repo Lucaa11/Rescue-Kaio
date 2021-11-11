@@ -14,9 +14,9 @@
 #define dutyMDxA OCR1A
 #define dutyMSxD OCR1C
 #define dutyMDxD OCR1B
-double Kp;
-double Ki;
-double Kd;
+int Kp;
+int Ki;
+int Kd;
 
 
 volatile double error[5], integral[5], derivative[5], setpoint[5], speed[5], old_error[5];
