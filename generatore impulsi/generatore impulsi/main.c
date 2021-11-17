@@ -14,9 +14,9 @@ int main(void)
     while (1) 
     {
 		PORTA=1;
-		_delay_ms(100);
+		_delay_ms(10);
 		PORTA=0;
-		_delay_ms(100);
+		_delay_ms(10);
     }
 }
 

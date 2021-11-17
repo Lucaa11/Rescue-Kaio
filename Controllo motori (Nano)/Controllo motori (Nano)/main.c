@@ -30,9 +30,15 @@ int main(void)
 	Ki=0;
 	Kd=0;
 	setpoint[1]=1;
+
     while (1) 
     {
-		Kp=Serial_Recv_Num();
+		for(int i=797;i>0;i--){
+			Kp=i;
+			_delay_ms(10000);
+			
+		}
+		
     }
 }
 

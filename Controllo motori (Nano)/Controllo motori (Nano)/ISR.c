@@ -36,6 +36,7 @@ ISR(TIMER2_COMPA_vect){
 
 ISR(TIMER0_COMPA_vect){
 	topRaggiunti++;	
+	
 }
 
 ISR(INT0_vect){	
