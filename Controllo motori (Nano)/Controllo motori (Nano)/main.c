@@ -26,19 +26,16 @@ int main(void)
 	InitISR();
 	DDRC=0;
 	DDRD=0;
-	Kp=0;
-	Ki=0;
-	Kd=0;
-	setpoint[1]=1;
+	Kp=500;
+	Ki=2;
+	Kd=7;
+
 
     while (1) 
     {
-		for(int i=797;i>0;i--){
-			Kp=i;
-			_delay_ms(10000);
-			
-		}
-		
+		setpoint[1]=Serial_Recv_Num();
+
+
     }
 }
 
