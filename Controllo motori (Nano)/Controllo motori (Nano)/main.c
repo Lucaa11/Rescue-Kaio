@@ -26,15 +26,14 @@ int main(void)
 	InitISR();
 	DDRC=0;
 	DDRD=0;
-	Kp=500;
-	Ki=2;
-	Kd=7;
 
+	setpoint[1]=0.5;
 
     while (1) 
     {
-		setpoint[1]=Serial_Recv_Num();
-
+		
+		Serial_Send(speed[1]*1000);
+		SerialN();
 
     }
 }
