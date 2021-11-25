@@ -23,6 +23,7 @@ void InitISR(void){
 	EIMSK|=(1<<INT0)|(1<<INT1);
 	EICRA|=(1<<ISC01)|(1<<ISC00)|(1<<ISC11)|(1<<ISC10);
 	sei();
+
 }
 
 
@@ -32,6 +33,7 @@ ISR(TIMER2_COMPA_vect){
 	//dutyMDxA = CalculatePID(MDxA);
 	//dutyMSxD = CalculatePID(MSxD);
 	//dutyMDxD = CalculatePID(MDxD);
+	
 }
 
 ISR(TIMER0_COMPA_vect){
@@ -40,6 +42,7 @@ ISR(TIMER0_COMPA_vect){
 }
 
 ISR(INT0_vect){	
+
 	tImp1 = TCNT0;
 	topRaggiuntiProv1=topRaggiunti;
 	if(topRaggiuntiProv1==vTopRaggiunti1){
@@ -50,26 +53,11 @@ ISR(INT0_vect){
 		
 	}
 	speed[1] = 250000.0 / (622.0*difftImp1);
-	
-	//Serial_Send(((topRaggiuntiProv1-vTopRaggiunti1-1)*OCR0A));
-	//Serial_Send("\t");
-	//Serial_Send((OCR0A - vtImp1));
-	//Serial_Send("\t");
-	//Serial_Send(tImp1);
-	//Serial_Send("\t");
-	//Serial_Send(difftImp1);
-	//Serial_Send("\t");
-	//Serial_Send_Int((int)(speed[1]*1000));
-	//SerialN();
 	vtImp1 = tImp1;
 	vTopRaggiunti1 = topRaggiuntiProv1;
 }
 
 ISR(INT1_vect){
-	Serial_Send(Kp);
-	Serial_Send("\t");
-	Serial_Send(OCR1A);
-	SerialN();
 }
 //
 //ISR(INT4_vect){

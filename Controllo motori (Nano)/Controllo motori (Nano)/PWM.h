@@ -14,15 +14,14 @@
 #define dutyMDxA OCR1A
 #define dutyMSxD OCR1C
 #define dutyMDxD OCR1B
-#define Kp 0
+#define Kp 650
 #define Ki 250
-#define Kd 0
-#define limP 0
-#define limI 0.5
-#define limD 0
+#define Kd 0.3
+#define limP 1000
+#define limI 1
 
 
-volatile double error[5], integral[5], derivative[5], setpoint[5], speed[5], old_error[5];
+volatile double error[5], proportional[5], integral[5], derivative[5], setpoint[5], speed[5], old_error[5];
 volatile unsigned int M;
 volatile double errorGy, integralGy , derivativeGy, setpointGy, old_errorGy, increase[5],set[5],objDegree;
 volatile int Ti;

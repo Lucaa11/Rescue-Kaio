@@ -27,14 +27,11 @@ int main(void)
 	DDRC=0;
 	DDRD=0;
 
-	setpoint[1]=0.5;
+	setpoint[1]=1;
 
     while (1) 
     {
 		
-		Serial_Send(speed[1]*1000);
-		SerialN();
-
     }
 }
 

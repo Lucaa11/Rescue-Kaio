@@ -83,12 +83,12 @@ void InitPWM(void){
 ///*-------------------PID-------------------*/
 
 int CalculatePID(int N){
-
 	error[N] = setpoint[N] - speed[N];
 	integral[N] += error[N]*0.002;
 	integral[N] = integral[N] > limI ? limI : integral[N] < -limI ? -limI : integral[N];
+	proportional[N] = error[N]*Kp > limP ? limP : error[N]*Kp < -limP ? -limP : error[N]*Kp;
 	derivative[N] = (error[N] - old_error[N])/0.002;
-	duty[N] = error[N]*Kp + integral[N]*Ki + derivative[N]*Kd;
+	duty[N] = proportional[N] + integral[N]*Ki + derivative[N]*Kd;
 	if (duty[N]<0) duty[N]=0;
 	if (duty[N]>1023) duty[N]=1023;
 	old_error[N] = error[N];

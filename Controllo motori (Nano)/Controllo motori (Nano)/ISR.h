@@ -17,7 +17,6 @@ volatile unsigned int topRaggiuntiProv4,vTopRaggiunti4;
 volatile unsigned long topRaggiunti,impTot;
 volatile double sommaVel1,sommaVel2,sommaVel3,sommaVel4;
 volatile int duty[5];
-volatile double speed[5],old_millis,current_millis;
-volatile unsigned long ciao;
+volatile double speed[5];
 
 
