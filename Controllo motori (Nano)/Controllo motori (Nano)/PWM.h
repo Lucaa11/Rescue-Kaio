@@ -32,3 +32,4 @@ void setGiriCoppia(double , double );
 int CalculatePID(int );
 void Turn(double degrees);
 void stopMotori();
+void servo(double degrees);

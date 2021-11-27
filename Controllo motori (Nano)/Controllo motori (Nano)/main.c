@@ -26,11 +26,9 @@ int main(void)
 	InitISR();
 	DDRC=0;
 	DDRD=0;
-
-	setpoint[1]=1;
-
-    while (1) 
-    {
+	servo(180);
+    while (1) {
+			
 		
     }
 }

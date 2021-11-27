@@ -29,7 +29,7 @@ void InitISR(void){
 
 	
 ISR(TIMER2_COMPA_vect){
-	OCR1A = CalculatePID(1);
+	//OCR1A = CalculatePID(1);
 	//dutyMDxA = CalculatePID(MDxA);
 	//dutyMSxD = CalculatePID(MSxD);
 	//dutyMDxD = CalculatePID(MDxD);

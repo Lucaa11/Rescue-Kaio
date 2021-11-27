@@ -94,3 +94,6 @@ int CalculatePID(int N){
 	old_error[N] = error[N];
 	return duty[N];
 }
+void servo(double degrees){
+	OCR1A=degrees*(156-30)/180+30;
+}
