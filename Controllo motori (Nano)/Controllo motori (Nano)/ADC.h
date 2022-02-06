@@ -8,3 +8,4 @@
 #include <avr/io.h>
 void InitADC(void);
 int StartADC(uint8_t);
+char* ColorSens(void);

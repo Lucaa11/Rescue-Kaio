@@ -6,14 +6,10 @@
  *  Author: tollardogiacomo
  */ 
 #include <avr/io.h>
-#define MSxA 1
-#define MDxA 2
-#define MSxD 3
-#define MDxD 4
-#define dutyMSxA OCR3A
-#define dutyMDxA OCR1A
-#define dutyMSxD OCR1C
-#define dutyMDxD OCR1B
+#define MA 0
+#define MD 1
+#define dutyMA OCR3A
+#define dutyMD OCR1A
 #define Kp 650
 #define Ki 250
 #define Kd 0.3
@@ -21,11 +17,9 @@
 #define limI 1
 
 
-volatile double error[5], proportional[5], integral[5], derivative[5], setpoint[5], speed[5], old_error[5];
+volatile double error[2], proportional[2], integral[2], derivative[2], setpoint[2], old_error[2];
 volatile unsigned int M;
-volatile double errorGy, integralGy , derivativeGy, setpointGy, old_errorGy, increase[5],set[5],objDegree;
 volatile int Ti;
-volatile double angle;
 void InitPWM(void);
 void Avantitutta(double );
 void setGiriCoppia(double , double );

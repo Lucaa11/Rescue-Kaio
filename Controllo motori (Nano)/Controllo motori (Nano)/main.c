@@ -25,11 +25,7 @@ int main(void)
 	InitPWM();
 	InitISR();
 	DDRC=0;
-	DDRD=0;
-	servo(180);
     while (1) {
-			
-		
     }
 }
 

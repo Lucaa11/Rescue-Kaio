@@ -14,6 +14,7 @@
 #include <avr/io.h>
 #include <math.h>
 #include "ADC.h"
+#include "serial.h"
 
 /*-------------ADC-----------------*/
 void InitADC(void){
@@ -51,4 +52,13 @@ double DistanzaIR(uint8_t POS){					//funzione per sensori sharp corti e lunghi
 	valore=29.988 * pow(valore*5/1023 , -1.173);
 
 	return valore;
+}
+char* ColorSens(){							// 2,5 cm da terra piastra gialla
+	char* color;
+	int valore=0;
+	valore=StartADC(0);
+	if (valore>600) color = "silver";
+	else if(valore<275) color = "black";
+	else color = "white";
+	return color;
 }

@@ -32,9 +32,10 @@ void InitPWM(void){
 	TCNT0=0xFF;
 
 	
+	DDRD=(1<<PIND4)|(1<<PIND5)|(1<<PIND6)|(1<<PIND7);
 	DDRB=0xFF;
 
-	for(int i=1;i<5;i++)integral[i]=0;
+	for(int i=1;i<2;i++)integral[i]=0;
 }
 
 //
