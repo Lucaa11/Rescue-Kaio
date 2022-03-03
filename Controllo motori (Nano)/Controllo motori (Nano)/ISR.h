@@ -13,4 +13,5 @@ volatile double speed[2];
 volatile int countForSer;
 char num[64];
 volatile double Num;
-char operation;
+volatile char operation;
+volatile uint8_t numEnded;

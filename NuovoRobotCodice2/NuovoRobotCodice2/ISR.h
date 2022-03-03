@@ -20,4 +20,7 @@ volatile int duty[5];
 volatile double speed[5],old_millis,current_millis;
 
 
-
+volatile int countForSer;
+char num[64];
+volatile double Num;
+char operation;

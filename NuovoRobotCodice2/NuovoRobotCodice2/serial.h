@@ -12,7 +12,7 @@ float ABS(double x);
 float limita(float x, float I, float F);
  
 void Serial_Init();//Init
-void Serial_Tx( unsigned char data );//TRASMISSIONE
+void Serial_Tx(unsigned char data );//TRASMISSIONE
 unsigned char Serial_Rx( void );//RICEVI
 void Serial_Send_Int(int32_t num);//NUMERO
 void Serial_Send_String(char *string1);//STRINGA

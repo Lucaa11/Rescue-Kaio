@@ -8,7 +8,7 @@
 #include <util/delay.h>
 
 #include "serial.h"
-
+#include "ISR.h"
 long BAUD0 = (F_CPU/16/USART0_BAUDRATE)-1;
 long BAUD1 = (F_CPU/16/USART1_BAUDRATE)-1;
 long BAUD2 = (F_CPU/16/USART2_BAUDRATE)-1;
@@ -35,8 +35,9 @@ float limita(float x, float I, float F){
 void Serial_Init(){
  	UBRR0H = (unsigned char)(BAUD0>>8); 
  	UBRR0L = (unsigned char)BAUD0;
-	UCSR0B = (1<<RXEN0)|(1<<TXEN0);
+	UCSR0B = (1<<RXEN0)|(1<<TXEN0)|(1<<RXCIE0);
 	UCSR0C = 0b00000110;
+	for(int i=0;i<32;i++) num[i]=0;
 } 
 void Serial_Tx(unsigned char data)
 {

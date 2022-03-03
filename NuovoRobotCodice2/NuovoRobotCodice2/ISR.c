@@ -9,6 +9,7 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include <avr/interrupt.h>
+#include <stdlib.h>
 #include "ISR.h"
 #include "PWM.h"
 #include "serial.h"
@@ -104,4 +105,62 @@ ISR(INT4_vect){
 	vtImp4 = tImp4;
 	vTopRaggiunti4 = topRaggiuntiProv4;
 	speed[4] = 62500 / (difftImp4 * 622);
+}
+ISR (USART0_RX_vect){
+	char n=UDR0;
+	if (n!= 'e'){
+		
+		num[countForSer]=n;				//riempie la stringa dalla cifra più significativa
+		countForSer++;
+		Serial_Tx(n);
+		SerialN();
+	}
+	
+	else{
+		operation=num[countForSer-1];
+		Serial_Tx(operation);
+		Serial_Send("\t");
+		num[countForSer-1]=0;
+		for(int i=0;i<countForSer-1;i++)Serial_Tx(num[i]);
+		Serial_Send("\t");
+		float wantedSpeed=atof(num);
+		Serial_Send(wantedSpeed);
+		SerialN();
+		switch (operation)
+		{
+			case '0':
+			if (wantedSpeed<0){
+				PORTD=(1<<PIND6)|(1<<PIND4);
+				wantedSpeed=-wantedSpeed;
+			}
+			else PORTD=(1<<PIND7)|(1<<PIND5);
+			
+			for(int i=0; i<2; i++)setpoint[i]=wantedSpeed;
+			if(wantedSpeed==0)for(int i=0; i<2; i++)setpoint[i]=-1000;
+			break;
+			
+			case '1':
+			Serial_Send(1);
+			SerialN();
+			SerialN();
+			break;
+			
+			case '2':
+			angle=wantedSpeed;
+			Serial_Send(angle);
+			SerialN();
+			SerialN();
+			break;
+		
+			default:
+			Serial_Send("ciao");
+			SerialN();
+			SerialN();
+			break;
+		}
+
+		for(countForSer; countForSer>=0; countForSer--) num[countForSer]=0;
+		countForSer++;
+		
+	}
 }

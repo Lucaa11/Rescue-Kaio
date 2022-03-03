@@ -15,32 +15,24 @@
 #include "BNO.h"
 #include "TWI.h"
 #include "i2cMaster.h"
-#include "ADC.h"
+//#include "ADC.h"
 
 int main(void)
 {
+	
 	//TWI_init();
 	//BNO_init();
-	init_millis(F_CPU);
+	//init_millis(F_CPU);
 	Serial_Init();
-	Serial_Send("xd");
+	Serial_Send("servo");
 	SerialN();
 	InitPWM();
 	InitISR();
-	InitADC();
+	//InitADC();
 	DDRA=0;
-	
-	while (1){
-		if((PINA & (1<<PA1))==(1<<PA1))
-		{
-			Serial_Send(1);
-			_delay_ms(100);
-		}
-		else
-		{
-			Serial_Send(0);
-			_delay_ms(100);
-		}
+	while (1)
+	{
+
 	}
 }
 
