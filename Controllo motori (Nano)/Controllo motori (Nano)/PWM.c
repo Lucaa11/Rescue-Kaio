@@ -84,7 +84,22 @@ void InitPWM(void){
 ///*-------------------PID-------------------*/
 
 int CalculatePID(int N){
-	error[N] = setpoint[N] - speed[N];
+	if(Ti==0){
+		errorGy = setpointGy + ABS(angle);
+		derivativeGy = (errorGy - old_errorGy)/0.002;
+		
+		if(angle>0){
+			increase[0] = increase[1] = -errorGy*Kpg /*+ derivativeGy*Kdg*/;
+			increase[0] = increase[1] = (errorGy*Kpg /*+ derivativeGy*Kdg*/);
+		}
+		if(angle<0){
+			increase[0] = increase[1] = errorGy*Kpg /*+ derivativeGy*Kdg*/;
+			increase[0] = increase[1] = -(errorGy*Kpg /*+ derivativeGy*Kdg*/);
+		}
+		old_errorGy = errorGy;
+	}
+	set[N] = (setpoint[N]) + (increase[N]);
+	error[N] = set[N] - speed[N];
 	integral[N] += error[N]*0.002;
 	integral[N] = integral[N] > limI ? limI : integral[N] < -limI ? -limI : integral[N];
 	proportional[N] = error[N]*Kp > limP ? limP : error[N]*Kp < -limP ? -limP : error[N]*Kp;

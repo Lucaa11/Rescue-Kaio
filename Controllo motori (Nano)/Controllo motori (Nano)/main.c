@@ -1,3 +1,4 @@
+
 /*
  * Controllo motori (Nano).c
  *
@@ -17,7 +18,6 @@
 int main(void)
 {
 	
-	//init_millis(F_CPU);
 	numEnded=0;
 	Serial_Init();
 	InitADC();
@@ -43,12 +43,23 @@ int main(void)
 				for(int i=0; i<2; i++)setpoint[i]=wantedSpeed;
 				if(wantedSpeed==0)for(int i=0; i<2; i++)setpoint[i]=-1000;
 				break;
+				
 				case '1':
-				Serial_Send(ColorSens());
+				Serial_Send(1);
+				SerialN();
 				SerialN();
 				break;
+				
+				case '2':
+				angle=wantedSpeed;
+				Serial_Send(angle);
+				SerialN();
+				SerialN();
+				break;
+				
 				default:
 				Serial_Send("ciao");
+				SerialN();
 				SerialN();
 				break;
 			}
