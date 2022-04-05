@@ -184,17 +184,16 @@ class BNO055:
     # REGISTER DEFINITION END
 
 
-    def __init__(self, sensorId=-1, address=0x29):
+    def __init__(self, sensorId=-1, address=0x29, i2c=None):
         self._sensorId = sensorId
         self._address = address
         self._mode = BNO055.OPERATION_MODE_NDOF
-
+        self.i2c=i2c
 
     def begin(self, mode=None):
         if mode is None: mode = BNO055.OPERATION_MODE_NDOF
         # Open I2C bus
-        self._bus = smbus.SMBus(1)
-        time.sleep(1)
+        self._bus = self.i2c
 
         # Make sure we have the right device
         if self.readBytes(BNO055.BNO055_CHIP_ID_ADDR)[0] != BNO055.BNO055_ID:
@@ -281,15 +280,23 @@ class BNO055:
 
     def writeBytes(self, register, byteVals):
         return self._bus.write_i2c_block_data(self._address, register, byteVals)
-    def stampa(self):
-        while True:
-            print(self.getVector(self.VECTOR_EULER))
-            time.sleep(0.1)
+    def readAxis(self,axis=0):
+        z,y,x=self.getVector(self.VECTOR_EULER)
+        if not axis:
+            if z>=180:
+                z-=360
+            return z
+        if axis==1:
+            return y
+        if axis==2:
+            return x
 if __name__ == '__main__':
     bno = BNO055()
     if bno.begin() is not True:
         print("Error initializing device")
         exit()
     bno.setExternalCrystalUse(True)
-    bno.stampa()
+    while True:
+        print (bno.readAxis())
+        time.sleep(0.1)
 

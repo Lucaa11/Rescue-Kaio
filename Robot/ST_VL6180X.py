@@ -110,18 +110,18 @@ class VL6180X:
         40:     40.00,     # Nominal gain 40;   actual gain 40
     }
 
-    def __init__(self, address=0x29, debug=False, Id=0, shdnPin=10):
+    def __init__(self, address=0x29, debug=False, Id=0, shdnPin=10, i2c=None):
         # Depending on if you have an old or a new Raspberry Pi, you
         # may need to change the I2C bus.  Older Pis use SMBus 0,
         # whereas new Pis use SMBus 1.  If you see an error like:
         # 'Error accessing 0x29: Check your I2C address '
         # change the SMBus number in the initializer below!
-        
+        self.i2c=i2c
         self.Id=Id
         self.shdnPin=shdnPin
         
         # setup i2c bus and SFR address
-        self.i2c = smbus.SMBus(1)
+        
         self.address = address
         self.debug = debug
             
@@ -397,12 +397,15 @@ class VL6180X:
 class VL6180Xs:
     def __init__(self, numSens=1, shdnPins=[10,27,25,9,11]):
         
+        self.i2c = smbus.SMBus(1)
+        time.sleep(2)
+        
         self.numSens=numSens
         self.shdnPins=shdnPins
         self.tof_sensor=[]
         self.initSens()
-        
     def initSens(self):
+        
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
         # setup ToF ranging/ALS sensor
@@ -414,10 +417,13 @@ class VL6180Xs:
             GPIO.setup(pin,GPIO.OUT)                    # prendo il gpio del singolo laser è lo metto .out
             GPIO.output(pin,GPIO.LOW)                   # metto low il singolo pin del laser
         
-        time.sleep(1)
+        time.sleep(0.1)
         for sensorId in range((self.numSens)):
-            self.tof_sensor.append(VL6180X(address=0x29, Id=sensorId, shdnPin=self.shdnPins[sensorId]))
+            self.tof_sensor.append(VL6180X(address=0x29, Id=sensorId, shdnPin=self.shdnPins[sensorId], i2c=self.i2c))
             self.tof_sensor[sensorId].get_identification()
             print(hex(self.tof_sensor[sensorId].change_address(self.tof_sensor[sensorId].address, (0x20+2*sensorId))))
         GPIO.output(8,GPIO.HIGH)      
-
+    def stampa(self,n):
+        while True:
+            print (self.tof_sensor[n].get_distance())
+        

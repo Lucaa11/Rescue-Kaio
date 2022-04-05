@@ -6,6 +6,6 @@ class Caio():
         self.i=0
     def ciao(self,q):
         while True:
-            q.put(str(self.i))
+            q.send(str(self.i))
             time.sleep(1)
             self.i+=1

@@ -1,19 +1,21 @@
 #!/usr/bin/python
 import threading
 import time
-from multithreadingtest2 import Caio
-from BNO055 import *
+from I2C import *
 class Gyro (threading.Thread):
    def __init__(self):
       threading.Thread.__init__(self)
    def run(self):
-      bno = BNO055()
-      if bno.begin() is not True:
-          print("Error initializing device")
-          exit()
-      bno.setExternalCrystalUse(True)
-      bno.stampa()
-
+      sensors.bno.stampa()
+class ToF(threading.Thread):
+    def __init__(self, n):
+        threading.Thread.__init__(self)
+    def run(self):
+        pass
+sensors=initialization()
 gyro=Gyro()
 gyro.start()
+
+while True:
+    pass
 
