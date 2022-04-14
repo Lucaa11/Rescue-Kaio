@@ -283,8 +283,6 @@ class BNO055:
     def readAxis(self,axis=0):
         z,y,x=self.getVector(self.VECTOR_EULER)
         if not axis:
-            if z>=180:
-                z-=360
             return z
         if axis==1:
             return y
