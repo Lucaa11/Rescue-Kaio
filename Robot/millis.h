@@ -1,0 +1,1 @@
+void diffMillis(bool start);
